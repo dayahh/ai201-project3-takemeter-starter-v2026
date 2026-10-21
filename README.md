@@ -50,7 +50,7 @@ TakeMeter sorts comments from **r/hiphopheads**, a big public subreddit about hi
 **Definition:** Makes a point about music, artists, or the scene and backs it up with a specific fact you could check, like a number, a date, a credit, a setlist, or a quoted lyric.
 
 **Example 1:**
-> As of today he has 71.1 million monthly listeners on Spotify alone, his new song off of bully “father” is number 1 globally on Apple Music, bully is the number 1 album on both Spotify and Apple Music, and he’s projected to sell 250k-300k first week. You are delusional if you think anyone actually stopped listening
+> Goldlink bit a whole segment of a verse on "Meditation" from an unreleased Smino track and got called out for it  In hindsight it seems blatant, the beige loaf line definitely screams smino and is too clever to be a goldlink bar
 
 **Example 2:**
 > Try reading ... it says "in 1996" lol... Pusha Twas like 19 years old and hadn't put out any music yet . Reasonable Doubt came out in June 1996.. no one even knew Jay z at that time
@@ -60,7 +60,7 @@ TakeMeter sorts comments from **r/hiphopheads**, a big public subreddit about hi
 **Definition:** A confident general claim about music, artists, or the scene with no checkable support. It might be true, but it isn't argued.
 
 **Example 1:**
-> Beat is fucking immaculate, but Travis cemented himself as one of the worst rappers out with this one.
+> Please stop comparing Drake to Kanye I don’t know why we’re still doing this 4+ years later, they’re different animals and Kanye washes
 
 **Example 2:**
 > BSBD is the most talented production group in rap history imo, I still don't think anything else has ever reached the production level that Noir did.
@@ -70,10 +70,10 @@ TakeMeter sorts comments from **r/hiphopheads**, a big public subreddit about hi
 **Definition:** The writer's own personal response, like a feeling, a listening memory, a favorites list, or a first impression, not a claim about how the world is.
 
 **Example 1:**
-> This set gave me goosebumps! He crammed so many hits into an hour, his voice sounded amazing, his dancing was euphoric and the band were incredible. It's sad that his tour got cancelled, but in a way this is the perfect send off for the Gambino name (for now).
+> TLOP was a time, one of the albums in my life I vividly remember it dropping along with astroworld
 
 **Example 2:**
-> Ngl I liked only 2 songs from the album, shopping and flamethrower the rest sound kinda alienish
+> there’s been so many times this song has broken me into pieces, but there’s so many times it put me back together.
 
 ### The hardest boundary
 
@@ -92,15 +92,15 @@ The age is a real fact, but it doesn't prove the "potential to take over" part, 
 
 **Where the posts came from:** Public comments from r/hiphopheads, posted between October 2025 and September 2026. I pulled them from the Arctic Shift Reddit archive and kept whole comments between 80 and 600 characters, with no links. From a pool of about 730, I kept the ones about music, artists, or the rap scene, and skipped user-vs-user arguments, politics, and off-topic stuff like video games, since none of my labels fit those.
 
-**How I labelled them:** The first 20 rows in `labels.csv` are marked `cold`. Every other row was pre-labeled by an AI (Claude) using my definitions and then checked one by one, and is marked `pre-labeled by Claude, checked` in the note column. See the disclosure under How I Used AI, because the cold rows were not done fully by hand.
+**How I labelled them:** The first 20 rows in `labels.csv` are marked `cold`, and I labeled those by hand with no AI help. Every other row was pre-labeled by an AI (Claude) using my definitions, and is marked `pre-labeled by Claude, checked` in the note column. See the disclosure under How I Used AI.
 
 **Counts per label:**
 
 | Label | Count | Share |
 |---|---|---|
-| `analysis` | 47 | 19.4% |
-| `hot_take` | 91 | 37.6% |
-| `reaction` | 104 | 43.0% |
+| `analysis` | 49 | 20.2% |
+| `hot_take` | 92 | 38.0% |
+| `reaction` | 101 | 41.7% |
 | **Total** | 242 | 100% |
 
 **Three hard cases**
@@ -134,17 +134,17 @@ The age is a real fact, but it doesn't prove the "potential to take over" part, 
 
 **Settings:** 3 epochs, learning rate 2e-5, batch size 16, max length 128 tokens, seed 42. Trained on **CPU** (`device: cpu` in `results.json`), and it took about 80 seconds.
 
-**Anything I changed from the defaults, and why:** Nothing. I kept all the default settings so this first run is a clean starting point to compare against in unit 6.
+**Anything I changed from the defaults, and why:** Nothing. I kept all the default settings so this first run is a clean starting point to compare against in unit 6. I trained twice with the same settings: once with the AI's labels on the 20 cold rows, then again after I swapped in my own hand labels. `results.json` is from the second run.
 
 **Split sizes:** train 168 / val 37 / test 37.
 
 | Label | train | val | test |
 |---|---|---|---|
-| `analysis` | 33 | 7 | 7 |
-| `hot_take` | 63 | 14 | 14 |
-| `reaction` | 72 | 16 | 16 |
+| `analysis` | 34 | 7 | 8 |
+| `hot_take` | 64 | 14 | 14 |
+| `reaction` | 70 | 16 | 15 |
 
-`analysis` has only 7 posts in the test split, which is under 8, so its F1 will probably jump around a lot between seeds.
+`analysis` has only 8 posts in the test split, which is right at the edge, so its F1 will probably jump around a lot between seeds.
 
 ---
 
@@ -162,7 +162,7 @@ The age is a real fact, but it doesn't prove the "potential to take over" part, 
 - *What came back:* Five criteria tied to my data, for example a looser F1 bar for `analysis` because it only has 47 examples, plus a criterion about the `analysis` vs `hot_take` boundary.
 - *What I changed:* Nothing yet. I'm keeping them as written so I can check them honestly in unit 6.
 
-**Pre-labelling disclosure:** All 242 labels in `labels.csv` were made by Claude using the definitions above, including the 20 rows marked `cold`. Those 20 were labeled first, before any other rows, but by the AI and not by me by hand. The criteria in `criteria.md` were also written by Claude. After that, I re-labeled the 20 cold rows myself by hand, without looking at the AI's labels (my answers are in `my_cold_labels.csv`). I only agreed with the AI on **7 of 20 (35%)**. Most of the disagreements were posts the AI called `reaction` that I called `analysis` or `hot_take`, so the line between those labels isn't as clear as the definitions make it sound.
+**Pre-labelling disclosure:** 222 of the 242 labels in `labels.csv` were made by Claude using the definitions above. The criteria in `criteria.md` were also written by Claude. Claude first labeled the 20 `cold` rows too, but then I re-labeled them myself by hand without looking at its answers (mine are in `my_cold_labels.csv`), and `labels.csv` now uses my labels for those 20. I only agreed with the AI on **7 of 20 (35%)**. Most of the disagreements were posts the AI called `reaction` that I called `analysis` or `hot_take`, so the line between those labels isn't as clear as the definitions make it sound.
 
 <!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════
 

@@ -63,7 +63,7 @@ On the held-out test split, overall accuracy is at least **0.65** on every one o
 
 On the held-out test split, `analysis` has an F1 of at least **0.55**, and `hot_take` and `reaction` each have an F1 of at least **0.60**, on all three seeds.
 
-**Why this target:** `analysis` is my smallest label with only 47 examples, so only about 7 land in the test split and its score will jump around a lot. I gave it a slightly looser bar than the two bigger labels, which have over 90 examples each.
+**Why this target:** `analysis` is my smallest label with only 49 examples, so only about 8 land in the test split and its score will jump around a lot. I gave it a slightly looser bar than the two bigger labels, which have over 90 examples each.
 
 ---
 
