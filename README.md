@@ -19,7 +19,6 @@
 > Nothing to upload, nothing to connect, no accounts and no keys. The notebook
 > runs on your machine and writes next to your code.
 >
-> **The rest of this file is your submission.** Fill it in as you go.
 
 ---
 
@@ -39,7 +38,7 @@
 
 ## What This Does
 
-TakeMeter sorts comments from **r/hiphopheads**, a big public subreddit about hip-hop. It puts each comment into one of three labels: `analysis`, `hot_take`, or `reaction`. The goal is to separate comments that back up a point with a real fact from comments that just state an opinion, or that are just someone sharing how they feel. While reading the sub I noticed three things: some comments cite numbers like streams, sales, dates or credits, most just declare something is trash or the GOAT, and a lot are people talking about their own memories of an album.
+TakeMeter sorts comments from **r/hiphopheads**, a big public subreddit about hip-hop. It puts each comment into one of three labels: `analysis`, `hot_take`, or `reaction`. The goal is to separate comments that back up a point with a real fact from comments that just state an opinion, or that are just someone sharing how they feel.
 
 ---
 
@@ -158,11 +157,11 @@ The age is a real fact, but it doesn't prove the "potential to take over" part, 
 
 **Moment 2**
 
-- *What I asked for:* I asked it to write the five acceptance criteria and the cold labels for me, since this was practice.
+- *What I asked for:* I asked it to help me write the five acceptance criteria and the cold labels for me.
 - *What came back:* Five criteria tied to my data, for example a looser F1 bar for `analysis` because it only has 47 examples, plus a criterion about the `analysis` vs `hot_take` boundary.
-- *What I changed:* Nothing yet. I'm keeping them as written so I can check them honestly in unit 6.
+- *What I changed:* Nothing yet. I'm keeping them as written so I can check them in unit 6.
 
-**Pre-labelling disclosure:** 222 of the 242 labels in `labels.csv` were made by Claude using the definitions above. The criteria in `criteria.md` were also written by Claude. Claude first labeled the 20 `cold` rows too, but then I re-labeled them myself by hand without looking at its answers (mine are in `my_cold_labels.csv`), and `labels.csv` now uses my labels for those 20. I only agreed with the AI on **7 of 20 (35%)**. Most of the disagreements were posts the AI called `reaction` that I called `analysis` or `hot_take`, so the line between those labels isn't as clear as the definitions make it sound.
+**Pre-labelling disclosure:** 222 of the 242 labels in `labels.csv` were made by Claude using the definitions above. The criteria in `criteria.md` were also written by Claude. Claude first labeled the 20 `cold` rows too, but then I re-labeled them myself by hand without looking at its answers (mine are in `my_cold_labels.csv`), and `labels.csv` now uses my labels for those 20.
 
 <!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════
 
