@@ -90,91 +90,79 @@ The age is a real fact, but it doesn't prove the "potential to take over" part, 
 
 ## The Dataset
 
-<!-- Where you collected from, how you labelled, your counts, and three hard
-     cases. -->
+**Where the posts came from:** Public comments from r/hiphopheads, posted between October 2025 and September 2026. I pulled them from the Arctic Shift Reddit archive and kept whole comments between 80 and 600 characters, with no links. From a pool of about 730, I kept the ones about music, artists, or the rap scene, and skipped user-vs-user arguments, politics, and off-topic stuff like video games, since none of my labels fit those.
 
-**Where the posts came from:**
-
-**How I labelled them:** <!-- Cold first? Pre-labelled with AI and corrected?
-Say so plainly — the disclosure is required, not penalised. -->
+**How I labelled them:** The first 20 rows in `labels.csv` are marked `cold`. Every other row was pre-labeled by an AI (Claude) using my definitions and then checked one by one, and is marked `pre-labeled by Claude, checked` in the note column. See the disclosure under How I Used AI, because the cold rows were not done fully by hand.
 
 **Counts per label:**
 
 | Label | Count | Share |
 |---|---|---|
-|  |  |  |
-|  |  |  |
-|  |  |  |
-| **Total** |  | 100% |
+| `analysis` | 47 | 19.4% |
+| `hot_take` | 91 | 37.6% |
+| `reaction` | 104 | 43.0% |
+| **Total** | 242 | 100% |
 
 **Three hard cases**
 
-<!-- Any post that made you pause: what it was, which two labels it could have
-     been, and what you chose. These are worth more than the easy 190. -->
-
 **1.**
-> *The post:*
+> *The post:* "1.4 billion people in China, now that restrictions are being lifted youre going to see every major artist go there"
 >
-> *Could have been:*
+> *Could have been:* `analysis` or `hot_take`
 >
-> *I chose, because:*
+> *I chose, because:* `analysis`. The 1.4 billion number is the actual reason given for the prediction, so the fact carries the argument instead of just decorating it.
 
 **2.**
-> *The post:*
+> *The post:* "the definition just shifted i think, underground used to mean you literally cannot find it anywhere unless you dig for it in the crates or on blogs. now it just mean you aint in the mainstream conversation even if you pulling numbers. like a rapper can have 2 million monthly listeners and still nobody at the barbershop know who they are"
 >
-> *Could have been:*
+> *Could have been:* `analysis` or `hot_take`
 >
-> *I chose, because:*
+> *I chose, because:* `hot_take`. It has a number, but "2 million monthly listeners" is a made-up example, not a stat about a real artist, so there's nothing to check.
 
 **3.**
-> *The post:*
+> *The post:* "I genuinely like the album. I’ve listened to it maybe 50 times now. My only qualm is that some tracks are a little too polished and bubblegum pop like. ..." (Isaiah Rashad album thread)
 >
-> *Could have been:*
+> *Could have been:* `reaction` or `hot_take`
 >
-> *I chose, because:*
+> *I chose, because:* `reaction`. It does make claims about the songs being too poppy, but most of the post is about the writer's own listening and taste, so I used the "most words" tie-break.
 
 ---
 
 ## The Training Run
 
-<!-- Your starting model, your settings, and anything you changed and why. -->
+**Base model:** `distilbert-base-uncased`
 
-**Base model:**
+**Settings:** 3 epochs, learning rate 2e-5, batch size 16, max length 128 tokens, seed 42. Trained on **CPU** (`device: cpu` in `results.json`), and it took about 80 seconds.
 
-**Settings:** <!-- epochs, learning rate, batch size, seed -->
+**Anything I changed from the defaults, and why:** Nothing. I kept all the default settings so this first run is a clean starting point to compare against in unit 6.
 
-**Anything I changed from the defaults, and why:**
+**Split sizes:** train 168 / val 37 / test 37.
 
-**Split sizes:** <!-- train / val / test, and per-label counts in the test
-split. If a label had fewer than about 8 in test, say so — it explains a lot
-of next unit's variance. -->
+| Label | train | val | test |
+|---|---|---|---|
+| `analysis` | 33 | 7 | 7 |
+| `hot_take` | 63 | 14 | 14 |
+| `reaction` | 72 | 16 | 16 |
 
-
+`analysis` has only 7 posts in the test split, which is under 8, so its F1 will probably jump around a lot between seeds.
 
 ---
 
 ## How I Used AI
 
-<!-- Two specific moments — what you asked, what came back, what you changed.
-
-     ⚠️ Plus disclosure of any pre-labelling. If you had a model pre-label a
-     batch and then read and corrected every one, say that. It's an allowed
-     workflow and disclosing it costs you nothing. Not disclosing it is the
-     problem. -->
-
 **Moment 1**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- *What I asked for:* I asked Claude (in Claude Code) to do this project with me, and I picked r/hiphopheads as the community.
+- *What came back:* It found that Reddit blocks direct downloads, so it pulled real comments from the Arctic Shift archive instead. Then it suggested the `analysis` / `hot_take` / `reaction` labels after reading the comments.
+- *What I changed:* We cut user-vs-user arguments and politics from the dataset, because those comments didn't fit any of the three labels.
 
 **Moment 2**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- *What I asked for:* I asked it to write the five acceptance criteria and the cold labels for me, since this was practice.
+- *What came back:* Five criteria tied to my data, for example a looser F1 bar for `analysis` because it only has 47 examples, plus a criterion about the `analysis` vs `hot_take` boundary.
+- *What I changed:* Nothing yet. I'm keeping them as written so I can check them honestly in unit 6.
 
-**Pre-labelling disclosure:**
+**Pre-labelling disclosure:** All 242 labels in `labels.csv` were made by Claude using the definitions above, including the 20 rows marked `cold`. Those 20 were labeled first, before any other rows, but by the AI and not by me by hand. The criteria in `criteria.md` were also written by Claude. To make the unit 6 agreement check mean something, I plan to re-label the 20 cold rows myself without looking.
 
 <!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════
 
