@@ -51,65 +51,46 @@ whether you hit them:
 
 ---
 
-## 1.
+## 1. Overall accuracy is at least 0.65
 
-<!-- Your criterion. It must name a number. -->
+On the held-out test split, overall accuracy is at least **0.65** on every one of the three seeds.
 
-
-
-**Why this target:**
-
-
+**Why this target:** My biggest label is `reaction` at about 43% of the data, so a model that always guesses `reaction` already gets around 0.43. I want the model to clearly beat that, and 0.65 is the point where I'd actually trust it to sort a page of comments for me.
 
 ---
 
-## 2.
+## 2. Every label has an F1 of at least 0.55, and `hot_take` / `reaction` reach 0.60
 
-<!-- Your criterion. -->
+On the held-out test split, `analysis` has an F1 of at least **0.55**, and `hot_take` and `reaction` each have an F1 of at least **0.60**, on all three seeds.
 
-
-
-**Why this target:**
-
-
+**Why this target:** `analysis` is my smallest label with only 47 examples, so only about 7 land in the test split and its score will jump around a lot. I gave it a slightly looser bar than the two bigger labels, which have over 90 examples each.
 
 ---
 
-## 3.
+## 3. Fewer than 30% of real `analysis` posts get called `hot_take`
 
-<!-- Your criterion. -->
+In the confusion matrix for seed 42, fewer than **30%** of the true `analysis` posts in the test split are predicted as `hot_take`.
 
-
-
-**Why this target:**
-
-
+**Why this target:** `analysis` vs `hot_take` is my hardest boundary, since both are confident claims and the only difference is whether a real fact carries the argument. If the model mixes those two up a lot, it didn't learn the one thing this classifier is for.
 
 ---
 
-## 4.
+## 4. Confident predictions are right more often than unsure ones
 
-<!-- Your criterion. -->
+In `results.json`, `accuracy_most_confident_third` is at least **0.15 higher** than `accuracy_least_confident_third`.
 
-
-
-**Why this target:**
-
-
+**Why this target:** If the model's confidence means anything, the posts it's surest about should be right a lot more often. A gap of 0.15 is big enough that it isn't just noise on a test split of about 37 posts (12 per third).
 
 ---
 
-## 5.
+## 5. I agree with my own cold labels at least 80% of the time
 
-<!-- Your criterion. -->
+When I re-label the 20 rows marked `cold` in `labels.csv` in unit 6, without looking at the original labels, at least **16 of 20 (80%)** match the original.
 
-
-
-**Why this target:**
-
-
+**Why this target:** If I can't apply my own definitions the same way twice, the model is learning from noisy labels and none of the other numbers mean much. 80% leaves room for the few posts that really sit on the `hot_take` / `reaction` line.
 
 ---
+
 
 <!-- ─────────────────────────────────────────────────────────────────────────
      UNIT 6 — read this before you change anything above.
