@@ -39,50 +39,52 @@
 
 ## What This Does
 
-<!-- Your community, and what your classifier sorts posts into. Three or four
-     sentences. -->
-
-
+TakeMeter sorts comments from **r/hiphopheads**, a big public subreddit about hip-hop. It puts each comment into one of three labels: `analysis`, `hot_take`, or `reaction`. The goal is to separate comments that back up a point with a real fact from comments that just state an opinion, or that are just someone sharing how they feel. While reading the sub I noticed three things: some comments cite numbers like streams, sales, dates or credits, most just declare something is trash or the GOAT, and a lot are people talking about their own memories of an album.
 
 ---
 
 ## Label Taxonomy
 
-<!-- Each label: a one-sentence definition and two real examples from your
-     reading. Then your decision rule for the hardest boundary.
+### `analysis`
 
-     The decision rule is worth a point on its own and it's the thing most
-     people leave out. Every taxonomy has a hardest boundary. Name yours. -->
-
-### `label_one`
-
-**Definition:**
+**Definition:** Makes a point about music, artists, or the scene and backs it up with a specific fact you could check, like a number, a date, a credit, a setlist, or a quoted lyric.
 
 **Example 1:**
->
+> As of today he has 71.1 million monthly listeners on Spotify alone, his new song off of bully “father” is number 1 globally on Apple Music, bully is the number 1 album on both Spotify and Apple Music, and he’s projected to sell 250k-300k first week. You are delusional if you think anyone actually stopped listening
 
 **Example 2:**
->
+> Try reading ... it says "in 1996" lol... Pusha Twas like 19 years old and hadn't put out any music yet . Reasonable Doubt came out in June 1996.. no one even knew Jay z at that time
 
-### `label_two`
+### `hot_take`
 
-**Definition:**
+**Definition:** A confident general claim about music, artists, or the scene with no checkable support. It might be true, but it isn't argued.
 
 **Example 1:**
->
+> Beat is fucking immaculate, but Travis cemented himself as one of the worst rappers out with this one.
 
 **Example 2:**
->
+> BSBD is the most talented production group in rap history imo, I still don't think anything else has ever reached the production level that Noir did.
+
+### `reaction`
+
+**Definition:** The writer's own personal response, like a feeling, a listening memory, a favorites list, or a first impression, not a claim about how the world is.
+
+**Example 1:**
+> This set gave me goosebumps! He crammed so many hits into an hour, his voice sounded amazing, his dancing was euphoric and the band were incredible. It's sad that his tour got cancelled, but in a way this is the perfect send off for the Gambino name (for now).
+
+**Example 2:**
+> Ngl I liked only 2 songs from the album, shopping and flamethrower the rest sound kinda alienish
 
 ### The hardest boundary
 
-**Which two labels:**
+**Which two labels:** `analysis` vs `hot_take`
 
-**The decision rule I used every time:**
-<!-- e.g. "If the post names a specific checkable fact, it's `analysis`, even
-     if the tone is heated." -->
+**The decision rule I used every time:** If the post has a checkable fact AND that fact is the reason for the claim, it's `analysis`. If the fact is just decoration on an opinion the writer already had, or the "number" is made up (like "a rapper can have 2 million listeners and nobody knows them"), it's `hot_take`. For `hot_take` vs `reaction`, I ask if the post is about the world (`hot_take`) or about the writer's own experience (`reaction`), and if it's both I go with whichever one most of the words are spent on.
 
+The borderline post that made me write this rule:
+> We lost both Juice and XXX at 21 and both had potential to take over the hip hop world.
 
+The age is a real fact, but it doesn't prove the "potential to take over" part, so it's `hot_take`.
 
 ---
 
