@@ -162,7 +162,7 @@ The age is a real fact, but it doesn't prove the "potential to take over" part, 
 - *What came back:* Five criteria tied to my data, for example a looser F1 bar for `analysis` because it only has 47 examples, plus a criterion about the `analysis` vs `hot_take` boundary.
 - *What I changed:* Nothing yet. I'm keeping them as written so I can check them honestly in unit 6.
 
-**Pre-labelling disclosure:** All 242 labels in `labels.csv` were made by Claude using the definitions above, including the 20 rows marked `cold`. Those 20 were labeled first, before any other rows, but by the AI and not by me by hand. The criteria in `criteria.md` were also written by Claude. To make the unit 6 agreement check mean something, I plan to re-label the 20 cold rows myself without looking.
+**Pre-labelling disclosure:** All 242 labels in `labels.csv` were made by Claude using the definitions above, including the 20 rows marked `cold`. Those 20 were labeled first, before any other rows, but by the AI and not by me by hand. The criteria in `criteria.md` were also written by Claude. After that, I re-labeled the 20 cold rows myself by hand, without looking at the AI's labels (my answers are in `my_cold_labels.csv`). I only agreed with the AI on **7 of 20 (35%)**. Most of the disagreements were posts the AI called `reaction` that I called `analysis` or `hot_take`, so the line between those labels isn't as clear as the definitions make it sound.
 
 <!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════
 
