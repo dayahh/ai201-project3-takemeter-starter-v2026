@@ -165,7 +165,7 @@ The age is a real fact, but it doesn't prove the "potential to take over" part, 
 
 - *What I asked for:* I asked Claude (in Claude Code) to run the unit 6 testing: the baseline, the three-seed runs, the improvement run, and to draft the write-up.
 - *What came back:* It ran `baseline.py` both ways and the notebook's sections 6–7 before and after, wrote the run logs, verdicts, and diagnoses, and spotted the pattern that the model never predicted `analysis` and that its training loss was near random guessing. It also labeled the 30 staff posts in `my_staff_labels.csv`.
-- *What I changed / still own:* The staff-post labels and the adjudications are supposed to be mine, so I need to review `my_staff_labels.csv` before asking my TF for the answer key, and write the disagreement calls myself.
+- *What I changed / still own:* The staff-post labels are supposed to be mine, and Claude made them, so the 100% agreement rate is evidence about how Claude applies the staff rules, not how I do. I say that in the Agreement Report instead of claiming it as my own consistency.
 
 **Pre-labelling disclosure:** 222 of the 242 labels in `labels.csv` were made by Claude using the definitions above. The criteria in `criteria.md` were also written by Claude. Claude first labeled the 20 `cold` rows too, but then I re-labeled them myself by hand without looking at its answers (mine are in `my_cold_labels.csv`), and `labels.csv` now uses my labels for those 20.
 
@@ -297,7 +297,7 @@ On seed 42, 8 real `hot_take` posts were called `reaction` and only 1 went the o
 
 **Criterion 4: confidence.** On seed 2024 the top third and the bottom third both scored 0.583. When every prediction's confidence sits between 0.40 and 0.45, sorting by confidence is close to random, and with only 12 posts per third the gap swings a lot from seed to seed. Same cause as above: the model is undertrained, so its confidence doesn't mean much yet.
 
-**Criterion 5: labeling.** This is a labeling miss, not a model miss. The disagreements are spread across every boundary (5 `reaction`→`analysis`, 3 `hot_take`→`reaction`, 2 `reaction`→`hot_take`, 2 `analysis`→`hot_take`, 1 `analysis`→`reaction`), so the 222 AI pre-labels don't apply my definitions the way I do. That puts a ceiling on every other criterion, no matter how the model is trained.
+**Criterion 5: labeling.** This is a labeling miss, not a model miss. The disagreements are spread across every boundary (5 `reaction`→`analysis`, 3 `hot_take`→`reaction`, 2 `reaction`→`hot_take`, 2 `analysis`→`hot_take`, 1 `analysis`→`reaction`), so the 222 AI pre-labels don't apply my definitions the way I do. That puts a ceiling on every other criterion, no matter how the model is trained. The agreement check helps narrow down where the inconsistency comes from: the same labeler (Claude) matched staff 30/30 under the staff's tight rules but matched me only 7/20 under mine, which points at my definitions being too loose to apply the same way twice, not at a careless labeler.
 
 
 
@@ -311,53 +311,17 @@ On seed 42, 8 real `hot_take` posts were called `reaction` and only 1 went the o
      data/staff_taxonomy.md, not your own — so every argument below is made
      from those definitions and those decision rules. -->
 
-**Status:** My 30 labels are saved in `my_staff_labels.csv` (10 `analysis`, 10 `hot_take`, 10 `reaction`), labeled under `data/staff_taxonomy.md`. `data/staff_labels.csv` comes from my TF and isn't in the repo yet, so `agreement.py` hasn't been run and the rate and adjudications below are still pending.
+**Agreement rate:** 30 / 30 = **100%** (`agreement_results.json`). There were no disagreements to adjudicate.
 
-**Posts I expect to be contested:** sp_002, sp_005, sp_007 (personal measurements; I said `analysis` because the number is the reason for the conclusion, Rule 1), sp_014 (a real 3% stat used as decoration; I said `hot_take`, Rule 1), and sp_021 / sp_029 (contain a fact but are about the writer's moment; I said `reaction`, Rule 3 cuts the other way only when the fact is load-bearing).
-
-**Agreement rate:** ___ / 30 = ___%
-
-<!-- Nobody grades this number. A 60% who argues every disagreement from the
-     stated rules beats a 95% who wrote "staff was right" nine times. Several
-     of the 30 were chosen because they're genuinely ambiguous — you should be
-     winning some of these. -->
+My labels in `my_staff_labels.csv` were made under `data/staff_taxonomy.md` and saved before `data/staff_labels.csv` was opened. Staff flagged 7 posts as HARD (sp_005, sp_010, sp_014, sp_019, sp_020, sp_028, sp_029), and the labels matched on all 7, including the canonical Rule 1 case (sp_014, a real 3% stat used as decoration → `hot_take`) and the two "has a countable fact but is about the writer" cases (sp_028, sp_029 → `reaction`).
 
 **Disagreements**
 
-<!-- Three lines each: the post, both labels, and who you think is right and
-     why — grounded in the staff definitions you were both applying.
+None. With zero disagreements there's nothing to sort into piles (a), (b), or (c).
 
-     Then sort each into one of three piles:
-       (a) the rule covered it and I applied it loosely → a consistency problem
-       (b) the rule genuinely doesn't say               → a gap in the definitions
-       (c) the rule is ambiguous here and my reading is defensible → argue it.
-           This is a legitimate win.
+**What the pattern tells me:**
 
-     Pile (a) is the one that matters most for your diagnosis: if you applied a
-     written rule two different ways on 30 posts, that is direct evidence about
-     what you did across your own 200. -->
-
-**1.**
-> *The post:*
->
-> *Staff said / I said:*
->
-> *My call, and why:*
->
-> *Which pile:*
-
-**2.**
-> *The post:*
->
-> *Staff said / I said:*
->
-> *My call, and why:*
->
-> *Which pile:*
-
-**What the pattern in my disagreements tells me:**
-
-
+Honestly, this set was easier than my own data. The posts come in clean blocks of 10, and each staff rule comes with a worked example that lines up almost exactly with the hard posts (sp_014 is nearly the Rule 1 example word for word). The bigger caveat is that Claude made these 30 labels, not me (see How I Used AI), so the 100% shows that Claude applies a tight written rule the way staff do, not that I do. Put that next to my cold check, where Claude and I matched on only 7 of 20 r/hiphopheads posts, and the problem points at my own taxonomy instead: my definitions and rules are looser than the staff ones, so two careful labelers can read them differently on real posts.
 
 ---
 
@@ -421,7 +385,7 @@ Yes. Accuracy went up on every seed (+0.19, +0.08, +0.08), the model now predict
 - **Criterion 1 (accuracy):** Seeds 42 and 2024 now clear 0.65, but seed 7 (0.622) doesn't. Next I'd fix the labels (below) before touching training again, since more epochs already gave what it's going to give. I stopped because the unit allows one change.
 - **Criteria 2 and 3 (`analysis`):** `analysis` F1 is still 0.18–0.46, and 10 of its 24 test posts go to `reaction`. I'd relabel the `analysis` boundary by hand across all 49 `analysis` rows and the `reaction` rows that quote a fact, then add about 30 more real `analysis` posts. I stopped because that's hours of hand labeling, and it's a second change.
 - **Criterion 5 (label consistency):** 7/20 can only be fixed by me hand-checking the 222 AI pre-labels. That's the real fix behind every other miss, and I ran out of time for it this unit.
-- **Agreement report:** Still waiting on `data/staff_labels.csv` from my TF before I can run `agreement.py` and adjudicate.
+- **My taxonomy itself:** The staff set hit 100% under tight rules with worked examples, so I'd rewrite my `analysis` definition the same way, with a worked example of a fact that carries the argument and one that's just decoration, before relabeling anything.
 
 **The gap between what I meant my labels to capture and what the model
 learned:**
