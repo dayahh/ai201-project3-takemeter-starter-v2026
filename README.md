@@ -206,29 +206,53 @@ My prediction was right in both directions. The baseline called 36 of 37 posts `
 <!-- Five criteria across three seeds. The notebook's section 6 prints the
      spread table; the Target and Verdict columns are yours. -->
 
+Device: **CPU** (`torch 2.14.1+cpu`), default settings (3 epochs, lr 2e-5, batch 16, max length 128). Seed 42 reproduced unit 5's `results.json` exactly. Numbers are from `results_three_seeds_before.json`.
+
 | Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
 |---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |
+| 1. Overall accuracy | ≥ 0.65 | 0.541 | 0.541 | 0.595 | MISSED |
+| 2. Per-label F1 (`analysis` / `hot_take` / `reaction`) | ≥ 0.55 / 0.60 / 0.60 | 0.000 / 0.545 / 0.636 | 0.000 / 0.562 / 0.647 | 0.000 / 0.651 / 0.696 | MISSED |
+| 3. Share of true `analysis` called `hot_take` | < 30% | 12.5% (1/8) | 62.5% (5/8) | 100% (8/8) | MISSED |
+| 4. Most-confident third minus least-confident third accuracy | ≥ +0.15 | +0.583 (0.833 − 0.250) | +0.417 (0.750 − 0.333) | 0.000 (0.583 − 0.583) | MISSED |
+| 5. My cold re-labels match the originals | ≥ 16/20 | 7/20 | 7/20 | 7/20 | MISSED |
+
+Criterion 5 doesn't depend on the seed. It compares the 20 labels I did by hand against the original labels on those same rows, so it's the same number in every column.
+
+**Spread:**
+
+| Measure | Seed 42 | Seed 7 | Seed 2024 | Spread |
+|---|---|---|---|---|
+| Overall accuracy | 0.541 | 0.541 | 0.595 | 0.054 |
+| Macro F1 | 0.394 | 0.403 | 0.449 | 0.055 |
+| F1 — `analysis` | 0.000 | 0.000 | 0.000 | 0.000 |
+| F1 — `hot_take` | 0.545 | 0.562 | 0.651 | 0.106 |
+| F1 — `reaction` | 0.636 | 0.647 | 0.696 | 0.059 |
+
+Accuracy moved 5.4 points, under the 10-point warning line, so the split isn't what's driving these numbers. The model is consistently weak on every split.
 
 ### Confusion matrix
 
-<!-- ⚠️ TYPED AS A MARKDOWN TABLE. The notebook prints one ready to paste.
-     An image of a matrix earns nothing. -->
+Seed 42 (what section 7 prints):
 
-| true \ predicted |  |  |  |
+| true \ predicted | analysis | hot_take | reaction |
 |---|---|---|---|
-| **** |  |  |  |
-| **** |  |  |  |
-| **** |  |  |  |
+| **analysis** | 0 | 1 | 7 |
+| **hot_take** | 0 | 6 | 8 |
+| **reaction** | 0 | 1 | 14 |
+
+All three seeds added together (111 test posts):
+
+| true \ predicted | analysis | hot_take | reaction |
+|---|---|---|---|
+| **analysis** | 0 | 14 | 10 |
+| **hot_take** | 0 | 29 | 13 |
+| **reaction** | 0 | 12 | 33 |
 
 **My biggest off-diagonal number, and what it means:**
 <!-- Not "the model made mistakes" — WHICH boundary it didn't learn, and which
      direction. "7 real analysis posts were called hot_take and only 3 went the
      other way" is a direction, not just an error rate. -->
+On seed 42, 8 real `hot_take` posts were called `reaction` and only 1 went the other way, so the model leans toward `reaction`, which is my biggest label. The bigger finding is the empty `analysis` column: across 111 test posts and three seeds, the model never predicted `analysis` once, so it didn't learn that boundary at all.
 
 
 
