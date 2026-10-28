@@ -161,6 +161,12 @@ The age is a real fact, but it doesn't prove the "potential to take over" part, 
 - *What came back:* Five criteria tied to my data, for example a looser F1 bar for `analysis` because it only has 47 examples, plus a criterion about the `analysis` vs `hot_take` boundary.
 - *What I changed:* Nothing yet. I'm keeping them as written so I can check them in unit 6.
 
+**Moment 3 (unit 6)**
+
+- *What I asked for:* I asked Claude (in Claude Code) to run the unit 6 testing: the baseline, the three-seed runs, the improvement run, and to draft the write-up.
+- *What came back:* It ran `baseline.py` both ways and the notebook's sections 6–7 before and after, wrote the run logs, verdicts, and diagnoses, and spotted the pattern that the model never predicted `analysis` and that its training loss was near random guessing. It also labeled the 30 staff posts in `my_staff_labels.csv`.
+- *What I changed / still own:* The staff-post labels and the adjudications are supposed to be mine, so I need to review `my_staff_labels.csv` before asking my TF for the answer key, and write the disagreement calls myself.
+
 **Pre-labelling disclosure:** 222 of the 242 labels in `labels.csv` were made by Claude using the definitions above. The criteria in `criteria.md` were also written by Claude. Claude first labeled the 20 `cold` rows too, but then I re-labeled them myself by hand without looking at its answers (mine are in `my_cold_labels.csv`), and `labels.csv` now uses my labels for those 20.
 
 <!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════
@@ -357,24 +363,53 @@ On seed 42, 8 real `hot_take` posts were called `reaction` and only 1 went the o
 
 ## The Improvement
 
-**What I changed:**
+**What I changed:** One training setting: `EPOCHS` went from 3 to 10 (notebook section 2). Labels, splits, seeds, learning rate, and everything else stayed the same.
 
-**Which diagnosis pointed at it:**
+**Which diagnosis pointed at it:** After 3 epochs, training loss was 1.03, barely below the 1.10 of random guessing, and confidence averaged 0.42, so the model was undertrained before it ever got a chance to learn `analysis`. The labeling problem is real too, but relabeling 222 rows was too big for one change, and training was the cheaper cause to test first.
 
-### Run Log — After
+### Run Log — Before
 
 | Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
 |---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |
+| 1. Overall accuracy | ≥ 0.65 | 0.541 | 0.541 | 0.595 | MISSED |
+| 2. Per-label F1 (`analysis` / `hot_take` / `reaction`) | ≥ 0.55 / 0.60 / 0.60 | 0.000 / 0.545 / 0.636 | 0.000 / 0.562 / 0.647 | 0.000 / 0.651 / 0.696 | MISSED |
+| 3. Share of true `analysis` called `hot_take` | < 30% | 12.5% (1/8) | 62.5% (5/8) | 100% (8/8) | MISSED |
+| 4. Confidence gap (most − least confident third) | ≥ +0.15 | +0.583 | +0.417 | 0.000 | MISSED |
+| 5. My cold re-labels match the originals | ≥ 16/20 | 7/20 | 7/20 | 7/20 | MISSED |
+
+### Run Log — After
+
+Same CPU, same seeds, `RUN_LABEL = "after"`. Numbers are from `results_three_seeds_after.json`.
+
+| Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
+|---|---|---|---|---|---|
+| 1. Overall accuracy | ≥ 0.65 | 0.730 | 0.622 | 0.676 | MISSED |
+| 2. Per-label F1 (`analysis` / `hot_take` / `reaction`) | ≥ 0.55 / 0.60 / 0.60 | 0.364 / 0.867 / 0.727 | 0.182 / 0.667 / 0.727 | 0.462 / 0.560 / 0.833 | MISSED |
+| 3. Share of true `analysis` called `hot_take` | < 30% | 12.5% (1/8) | 37.5% (3/8) | 50.0% (4/8) | MISSED |
+| 4. Confidence gap (most − least confident third) | ≥ +0.15 | +0.583 (1.000 − 0.417) | +0.167 (0.667 − 0.500) | +0.333 (0.833 − 0.500) | MET |
+| 5. My cold re-labels match the originals | ≥ 16/20 | 7/20 | 7/20 | 7/20 | MISSED |
+
+| Measure | Seed 42 | Seed 7 | Seed 2024 | Spread |
+|---|---|---|---|---|
+| Overall accuracy | 0.730 | 0.622 | 0.676 | 0.108 |
+| Macro F1 | 0.653 | 0.525 | 0.618 | 0.127 |
+| F1 — `analysis` | 0.364 | 0.182 | 0.462 | 0.280 |
+| F1 — `hot_take` | 0.867 | 0.667 | 0.560 | 0.307 |
+| F1 — `reaction` | 0.727 | 0.727 | 0.833 | 0.106 |
+
+Confusion matrix after, all three seeds added together:
+
+| true \ predicted | analysis | hot_take | reaction |
+|---|---|---|---|
+| **analysis** | 6 | 8 | 10 |
+| **hot_take** | 4 | 30 | 8 |
+| **reaction** | 1 | 5 | 39 |
 
 **Did it help, and how do I know:**
 
 <!-- If it didn't, say so. Relabelling that didn't help is a genuinely
      interesting result and earns full credit. -->
+Yes. Accuracy went up on every seed (+0.19, +0.08, +0.08), the model now predicts `analysis` (6 of 24 correct across seeds, up from 0 of 24), and criterion 4 flipped from MISSED to MET because confidence now means something (mean confidence when right went from about 0.43 to about 0.70). It still wasn't enough to flip criteria 1–3, and accuracy now swings 10.8 points across seeds (over the 10-point line), so with only 8 `analysis` posts per test split those numbers aren't stable yet.
 
 
 
@@ -383,12 +418,15 @@ On seed 42, 8 real `hot_take` posts were called `reaction` and only 1 went the o
 ## What's Still Broken
 
 <!-- For each criterion still missed: what you'd do, and why you stopped. -->
-
-
+- **Criterion 1 (accuracy):** Seeds 42 and 2024 now clear 0.65, but seed 7 (0.622) doesn't. Next I'd fix the labels (below) before touching training again, since more epochs already gave what it's going to give. I stopped because the unit allows one change.
+- **Criteria 2 and 3 (`analysis`):** `analysis` F1 is still 0.18–0.46, and 10 of its 24 test posts go to `reaction`. I'd relabel the `analysis` boundary by hand across all 49 `analysis` rows and the `reaction` rows that quote a fact, then add about 30 more real `analysis` posts. I stopped because that's hours of hand labeling, and it's a second change.
+- **Criterion 5 (label consistency):** 7/20 can only be fixed by me hand-checking the 222 AI pre-labels. That's the real fix behind every other miss, and I ran out of time for it this unit.
+- **Agreement report:** Still waiting on `data/staff_labels.csv` from my TF before I can run `agreement.py` and adjudicate.
 
 **The gap between what I meant my labels to capture and what the model
 learned:**
 <!-- Two sentences. Your confusion matrix is the evidence. -->
+I meant `analysis` to mean "a real fact carries the argument", but even after the fix the model sends 10 of 24 `analysis` posts to `reaction` and 8 to `hot_take`, so it hasn't learned to spot a load-bearing fact. What it seems to have learned is tone: personal, casual wording reads as `reaction` and confident wording reads as `hot_take`, which fits my cold check, where 5 posts the AI called `reaction` were ones I'd call `analysis`.
 
 
 
