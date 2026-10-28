@@ -185,6 +185,7 @@ The age is a real fact, but it doesn't prove the "potential to take over" part, 
 **What I predicted before I looked:**
 <!-- Milestone 1 asks you to write this BEFORE seeing the trained numbers. A
      prediction made afterwards isn't one. -->
+I predict my trained model beats the baseline on `reaction`, because it saw 70 examples of how people on r/hiphopheads talk about their own listening, but the baseline beats it on `analysis`, because my trained model never predicted `analysis` once in unit 5 and the baseline at least gets the word "fact" in its prompt.
 
 **What the gap actually means:**
 <!-- If the baseline matched your trained model, your fine-tuning added
