@@ -175,12 +175,17 @@ The age is a real fact, but it doesn't prove the "potential to take over" part, 
 <!-- Both models on the same posts. `python baseline.py --trained results.json`
      prints this table for you. -->
 
+Baseline is `facebook/bart-large-mnli` zero-shot with my definitions from `label_definitions.txt`, scored on the same 37 posts in `test_split.csv`. Trained is `results.json` (seed 42).
+
 | Measure | Baseline | Trained | Difference |
 |---|---|---|---|
-| Overall accuracy |  |  |  |
-| Macro F1 |  |  |  |
-| F1 — `label_one` |  |  |  |
-| F1 — `label_two` |  |  |  |
+| Overall accuracy | 0.243 | 0.541 | +0.297 |
+| Macro F1 | 0.166 | 0.394 | +0.228 |
+| F1 — `analysis` | 0.364 | 0.000 | -0.364 |
+| F1 — `hot_take` | 0.133 | 0.545 | +0.412 |
+| F1 — `reaction` | 0.000 | 0.636 | +0.636 |
+
+**Definitions vs. bare label names:** I ran the baseline a second time without `label_definitions.txt`. With bare names it got **0.297** accuracy (F1 `analysis` 0.000, `hot_take` 0.378, `reaction` 0.276), so my definitions were worth **−0.054**, meaning they made it worse. The table above is the definitions run.
 
 **What I predicted before I looked:**
 <!-- Milestone 1 asks you to write this BEFORE seeing the trained numbers. A
@@ -190,6 +195,7 @@ I predict my trained model beats the baseline on `reaction`, because it saw 70 e
 **What the gap actually means:**
 <!-- If the baseline matched your trained model, your fine-tuning added
      nothing — and that is a real finding, not a failure. Say it plainly. -->
+My prediction was right in both directions. The baseline called 36 of 37 posts `analysis`, because almost every post "makes a point about music", so its 0.364 F1 on `analysis` comes from guessing it every time, not from actually spotting facts. Fine-tuning more than doubled accuracy (+0.30), so training clearly added something, but the trained model's own `analysis` F1 is 0. That means neither model has learned the one boundary this project is built around.
 
 
 

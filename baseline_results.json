@@ -1,0 +1,219 @@
+{
+  "model": "facebook/bart-large-mnli",
+  "n": 37,
+  "seed": 42,
+  "held_out": true,
+  "used_definitions": true,
+  "scores": {
+    "n": 37,
+    "accuracy": 0.24324324324324326,
+    "f1_macro": 0.16565656565656564,
+    "per_label": {
+      "analysis": {
+        "precision": 0.2222222222222222,
+        "recall": 1.0,
+        "f1": 0.3636363636363636,
+        "support": 8
+      },
+      "hot_take": {
+        "precision": 1.0,
+        "recall": 0.07142857142857142,
+        "f1": 0.13333333333333333,
+        "support": 14
+      },
+      "reaction": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 15
+      }
+    }
+  },
+  "predictions": [
+    {
+      "text": "Almost all of the trap/soundcloud artists I liked from back in the day (~2017 lmao) I consider super boring these days, but I still listen to their back catalogue (future, thug, carti, migos, etc)  These days I find newer artists scratch the itch better than the old guard\u2019s new stuff: MIKE and Larry June especially have my rap playlists in a chokehold atm  One thing I have noticed even if they don\u2019t get tons of recognition though: the rap girlies are soooo consistent. I simply cannot get enough Tia, HOOK, Rico, young MA, BK, Megan, Glo, you name it.",
+      "gold": "reaction",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Young Thug from Barter 6 until So Much Fun is easy to spot why \"commercial mixtape\" is some dumbass label jargon. Thug finally got a big single as the lead artist when The London blew up and suddenly he dropped his debut studio album lmfao",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Nah this one of those needs to be addressed and I'm glad Cudi did it. When someone tries to discredit your success and spread misinformation like that, it needs to be addressed. Cudi brought great new music to the genre and he deserves the credit for that. We can't have someone like Jim who seems to be just saying stuff for clicks and clout just to stay relevant.",
+      "gold": "hot_take",
+      "predicted": "analysis"
+    },
+    {
+      "text": "The tour shows (before his health issues) was first half bando, second half throwbacks. Hearing Crawl live altered my brain chemistry permanently",
+      "gold": "reaction",
+      "predicted": "analysis"
+    },
+    {
+      "text": "90s - Aquemeni / life after death/ 400 degreez   2000s - Black Album/ Graduation  2010s - Section 80/ DS2/ life of Pablo   2020s - (I hardly listen to rap albums anymore) Smino - Luv 4 Rent",
+      "gold": "reaction",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Beat is fucking immaculate, but Travis cemented himself as one of the worst rappers out with this one.",
+      "gold": "reaction",
+      "predicted": "analysis"
+    },
+    {
+      "text": "no more parties in la was confirmed to be himself at least. lots of his early stuff is supposedly written by him if you check the credits",
+      "gold": "hot_take",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Songs like paul revere put the beastie boys in what I\u2019d consider the upper echelons of hiphop. That being said DJ Screw in my opinion is one of the originators of a sound that is incredibly influential on modern hiphop and actually EDM, providing the structure for the music we\u2019re familiar with today.",
+      "gold": "hot_take",
+      "predicted": "analysis"
+    },
+    {
+      "text": "lol kanye played 4 songs pre-graduation. you wanna put show me a good time in the same convo as through the wire or smth? not to mention a whole ass production career to line up w\u2026 idk, degrassi?",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "It's one of those ones where the name does it no justice. You can't have an ordinary ass song called ordinary. Change the mf name or change the song, give us some juxtaposition!",
+      "gold": "hot_take",
+      "predicted": "analysis"
+    },
+    {
+      "text": "I saw him back in the Graduation/808s era and honestly it wasn't all that great then either.",
+      "gold": "reaction",
+      "predicted": "analysis"
+    },
+    {
+      "text": "I saw him in Tampa for the Yeezus tour and it was in a smaller venue than this one, not sold out. They upgraded the tickets I bought because it was undersold. Amazing show though. Then in 2016 the Pablo tour at that same venue which was sold out.   This show is in the giant football stadium. Beyonce, Taylor Swift, U2, they play there.  Also good luck to anyone going to an outdoor concert in June in Tampa",
+      "gold": "reaction",
+      "predicted": "analysis"
+    },
+    {
+      "text": "scope set from suicide boys had a dj paul sample in the original version that got changed on streaming for copyright like a day later",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "I fucking love You Me and Him these days. May be because of listening to freestyles over it and my Philly bias. Just makes me think of gillie screaming at Beans!",
+      "gold": "reaction",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Shots Fired with Jada and Styles P was the hardest 50 diss. It\u2019s funny cuz they were going in on 50 so bad but they are all like, eh, it wasn\u2019t personal.",
+      "gold": "hot_take",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Bruh he didn't put his name as a collaborator on Bullfrog wit Doechii and she won a Grammy. There's a difference from buying his beats and him making something specifically tailored to a rapper he's working with directly. I've made shit with his beats before too, as long as it's on his radar who cares",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "That was so garbage. It was a Jom Jones girlfriend diss. And whoever said he raps like he\u2019s reading with his finger is spot on.",
+      "gold": "hot_take",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Here's a couple you haven't likely heard.   90's - Ronny Jordan meets DJ Krush - Bad Brothers   00's - Asheru and Blu Black of the Unspoken Heard - Soon Come...   10's - Tie - Astronautalis - This is Our Science & Dessa - Badly Broken Code   20's - Aesop Rock - Spirit Word Field Guide  Hope you enjoy them.",
+      "gold": "reaction",
+      "predicted": "analysis"
+    },
+    {
+      "text": "This imo is the way the album was intended to be released. Somewhere someone got in his f\u2019n head and told him to switch. I forget where it is but the album works its way up to ultralight beam.  He evens ends the concert with ULB. Lastly, the WAVES playlist is 47 minutes - some of the greatest albums were around the length",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Im still in Awe by the fact that Fat Joe is releasing HEAT almost year on year.  And how fucking beautiful the Pauses are from Jada (along with the subtle beat switch).",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Paula boutique has pretty consistently been their highest ranked album for the last 30 years.",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "The amount of great songs that have come off purely this one base sample alone is insane honestly. This might be the best one of them all, though Mos Def's Grown Man Business gives it a run for its money",
+      "gold": "hot_take",
+      "predicted": "analysis"
+    },
+    {
+      "text": "I genuinely like the album. I\u2019ve listened to it maybe 50 times now. My only qualm is that some tracks are a little too polished and bubblegum pop like. A prime example is the SZA one it\u2019s not a bad song just a little jarring compared to his last album. I think that song could be the summer hit with some promo.   I find Cameras to be a little too poppy as well. I like songs with this kinda hook but again it\u2019s just too far from his older styles for me to enjoy it on this album.   Both songs would have been great loosies imo.",
+      "gold": "reaction",
+      "predicted": "analysis"
+    },
+    {
+      "text": "A$$ is such a fucking funny song, like the fact that it exists and was a hit is hilarious. My favorite description is Todd in the Shadows calling it \u201cborderline avant-garde\u201d",
+      "gold": "reaction",
+      "predicted": "analysis"
+    },
+    {
+      "text": "It\u2019s so sad how the internet is just about engagement these days. Back in the day, you\u2019d find people making content just for the love of the game, and being true to themselves.   Nowadays, it\u2019s just people like this trying to ride the latest algorithmic wave. I don\u2019t even think all these people hate or dislike Drake, it\u2019s really just a business thing for them. And the general public think these manufactured narratives are natural.  You really gotta try hard to find real authentic voices on the internet.",
+      "gold": "hot_take",
+      "predicted": "analysis"
+    },
+    {
+      "text": "An album with rap fusion Jazz, rap fusion Afro beat and just pure Hiphop with story telling, I\u2019d pick \u201cDrimsbaby- Believe In Drims\u201d 2017",
+      "gold": "reaction",
+      "predicted": "analysis"
+    },
+    {
+      "text": "I couldn't disagree more. Rage Against the Machine's music is very political and it is timeless, just as an example.",
+      "gold": "hot_take",
+      "predicted": "analysis"
+    },
+    {
+      "text": "IDK has been one of my favs for the past couple years. His EPs slap too, SIMPLE was amazing in my opinion",
+      "gold": "reaction",
+      "predicted": "analysis"
+    },
+    {
+      "text": "There are so many clones out there, but for some reason the people wanted dessigner to fail really badly.",
+      "gold": "hot_take",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Cause FeMCs have been pitted against each other since the beginning like there can be only one. When women get in male dominated spaces if they don\u2019t come together then a whole lot of sniping going on.",
+      "gold": "hot_take",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Most of the setlists of his last 5 (all highly successful concerts) have literally just been like 40 songs with at least half of those being his best hits, a lot of graduation, a lot of mbdtf, and so on and so forth, yadda yadda yap yap",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "But the bigger question is....is this is really the album we have been waiting for since donda.?i don't think so and it makes me sad cuz me and the homies were so excited about it man..",
+      "gold": "reaction",
+      "predicted": "analysis"
+    },
+    {
+      "text": "The unemployed raking it in when it comes to negative and largely untrue Drake slop.",
+      "gold": "hot_take",
+      "predicted": "hot_take"
+    },
+    {
+      "text": "\"Sent your bitch a dick pic now she needs glasses\" is a crazy way to start a song",
+      "gold": "reaction",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Mixtapes been dead since like 2010s when rappers started releasing them on streaming platforms. They became full on albums. Drake probably the biggest name to \"drop a mixtape\" which was just an album.",
+      "gold": "hot_take",
+      "predicted": "analysis"
+    },
+    {
+      "text": "I dont know about hot. The production on most of YGs shit is mad heavy yet crispy. It doesnt get much better",
+      "gold": "hot_take",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Quietly announced and quietly cancelled. I\u2019ll be over here quietly not caring all the same",
+      "gold": "reaction",
+      "predicted": "analysis"
+    }
+  ]
+}
