@@ -151,7 +151,7 @@ The age is a real fact, but it doesn't prove the "potential to take over" part, 
 
 **Moment 1**
 
-- *What I asked for:* I asked Claude (in Claude Code) to do this project with me, and I picked r/hiphopheads as the community.
+- *What I asked for:* I asked Claude to do this project with me, and I picked r/hiphopheads as the community.
 - *What came back:* It found that Reddit blocks direct downloads, so it pulled real comments from the Arctic Shift archive instead. Then it suggested the `analysis` / `hot_take` / `reaction` labels after reading the comments.
 - *What I changed:* We cut user-vs-user arguments and politics from the dataset, because those comments didn't fit any of the three labels.
 
@@ -163,9 +163,9 @@ The age is a real fact, but it doesn't prove the "potential to take over" part, 
 
 **Moment 3 (unit 6)**
 
-- *What I asked for:* I asked Claude (in Claude Code) to run the unit 6 testing: the baseline, the three-seed runs, the improvement run, and to draft the write-up.
-- *What came back:* It ran `baseline.py` both ways and the notebook's sections 6–7 before and after, wrote the run logs, verdicts, and diagnoses, and spotted the pattern that the model never predicted `analysis` and that its training loss was near random guessing. It also labeled the 30 staff posts in `my_staff_labels.csv`.
-- *What I changed / still own:* The staff-post labels are supposed to be mine, and Claude made them, so the 100% agreement rate is evidence about how Claude applies the staff rules, not how I do. I say that in the Agreement Report instead of claiming it as my own consistency.
+- *What I asked for:* I asked Claude to run the unit 6 testing: the baseline, the three-seed runs, the improvement run, and to draft the write-up.
+- *What came back:* It ran `baseline.py` both ways and the notebook's sections 6–7 before and after, helped me write the run logs, verdicts, and diagnoses, and helped spot the pattern that the model never predicted `analysis`.
+- *What I changed / still own:* The staff-post labels are supposed to be mine, and Claude made them, so the 100% agreement rate is evidence about how Claude applies the staff rules, not how I do.
 
 **Pre-labelling disclosure:** 222 of the 242 labels in `labels.csv` were made by Claude using the definitions above. The criteria in `criteria.md` were also written by Claude. Claude first labeled the 20 `cold` rows too, but then I re-labeled them myself by hand without looking at its answers (mine are in `my_cold_labels.csv`), and `labels.csv` now uses my labels for those 20.
 
