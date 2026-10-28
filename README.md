@@ -265,11 +265,11 @@ On seed 42, 8 real `hot_take` posts were called `reaction` and only 1 went the o
 
 | # | Criterion | Target | Verdict | How I decided |
 |---|---|---|---|---|
-| 1 |  |  |  |  |
-| 2 |  |  |  |  |
-| 3 |  |  |  |  |
-| 4 |  |  |  |  |
-| 5 |  |  |  |  |
+| 1 | Overall accuracy | ≥ 0.65 on all three seeds | MISSED | The best seed was 0.595, and none of the three reached 0.65. |
+| 2 | Per-label F1 | `analysis` ≥ 0.55, others ≥ 0.60, all seeds | MISSED | `analysis` F1 was 0.000 on every seed, and `hot_take` was under 0.60 on seeds 42 and 7. |
+| 3 | `analysis` → `hot_take` share | < 30% on all three seeds (revised, see `criteria.md`) | MISSED | Seed 42 passes at 12.5%, but seeds 7 and 2024 come in at 62.5% and 100%. Even the seed 42 "pass" is hollow, because the other 7 `analysis` posts went to `reaction`. |
+| 4 | Confidence gap | ≥ +0.15 on all three seeds (revised) | MISSED | Seeds 42 and 7 clear it (+0.58, +0.42), but seed 2024 is exactly 0.000, and the target has to hold on every seed. |
+| 5 | Cold re-label agreement | ≥ 16/20 | MISSED | 7/20 = 35%, less than half the target. |
 
 **Diagnoses**
 
@@ -282,6 +282,17 @@ On seed 42, 8 real `hot_take` posts were called `reaction` and only 1 went the o
      have that can tell a LABELLING problem from a MODEL problem, and this
      section is graded on whether you used it that way. -->
 
+**Criteria 1, 2, 3: `analysis` is never predicted.** All three misses come from the same empty column. My evidence points to two causes stacked on top of each other:
+
+- **The model barely trained.** After 3 epochs, training loss was 1.03 on every seed. A model guessing randomly across 3 labels scores 1.10 (ln 3), so it moved very little. Its average confidence on the posts it got right was 0.42–0.43, barely above the 0.33 of a random guess. With that little signal it falls back on the two big labels, and `analysis` (34 training posts, 20%) never wins.
+- **The labels on that boundary are inconsistent.** My cold check (criterion 5) is the only check I have of my labels against an independent labeler, and on those 20 rows only 3 of the 6 that Claude called `analysis` matched my hand labels. On top of that, 5 of the posts Claude called `reaction` I called `analysis`. So the `analysis` examples the model learned from aren't applied the way I apply the definition, which is a labeling problem and not just a model problem.
+
+**Criterion 1, the lean toward `reaction`.** On seed 42, 8 `hot_take` posts were called `reaction` and only 1 went the other way. My cold check shows the same direction: 3 of the 6 rows Claude labeled `hot_take`, I labeled `reaction`. The model is copying a boundary that was applied two different ways in its training data.
+
+**Criterion 4: confidence.** On seed 2024 the top third and the bottom third both scored 0.583. When every prediction's confidence sits between 0.40 and 0.45, sorting by confidence is close to random, and with only 12 posts per third the gap swings a lot from seed to seed. Same cause as above: the model is undertrained, so its confidence doesn't mean much yet.
+
+**Criterion 5: labeling.** This is a labeling miss, not a model miss. The disagreements are spread across every boundary (5 `reaction`→`analysis`, 3 `hot_take`→`reaction`, 2 `reaction`→`hot_take`, 2 `analysis`→`hot_take`, 1 `analysis`→`reaction`), so the 222 AI pre-labels don't apply my definitions the way I do. That puts a ceiling on every other criterion, no matter how the model is trained.
+
 
 
 ---
@@ -293,6 +304,10 @@ On seed 42, 8 real `hot_take` posts were called `reaction` and only 1 went the o
      Remember you labelled these 30 under the STAFF taxonomy in
      data/staff_taxonomy.md, not your own — so every argument below is made
      from those definitions and those decision rules. -->
+
+**Status:** My 30 labels are saved in `my_staff_labels.csv` (10 `analysis`, 10 `hot_take`, 10 `reaction`), labeled under `data/staff_taxonomy.md`. `data/staff_labels.csv` comes from my TF and isn't in the repo yet, so `agreement.py` hasn't been run and the rate and adjudications below are still pending.
+
+**Posts I expect to be contested:** sp_002, sp_005, sp_007 (personal measurements; I said `analysis` because the number is the reason for the conclusion, Rule 1), sp_014 (a real 3% stat used as decoration; I said `hot_take`, Rule 1), and sp_021 / sp_029 (contain a fact but are about the writer's moment; I said `reaction`, Rule 3 cuts the other way only when the fact is load-bearing).
 
 **Agreement rate:** ___ / 30 = ___%
 

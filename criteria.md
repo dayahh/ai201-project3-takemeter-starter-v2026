@@ -73,6 +73,10 @@ In the confusion matrix for seed 42, fewer than **30%** of the true `analysis` p
 
 **Why this target:** `analysis` vs `hot_take` is my hardest boundary, since both are confident claims and the only difference is whether a real fact carries the argument. If the model mixes those two up a lot, it didn't learn the one thing this classifier is for.
 
+> **Revised in unit 6:** On **each of the three seeds** (42, 7, 2024), fewer than **30%** of the true `analysis` posts in the test split are predicted as `hot_take`.
+>
+> **Why revised:** As written, this only names seed 42, so it can't be tested across the three trials unit 6 requires, and one split is one lucky draw. The 30% target stays the same. Only the measurement changed, from one split to all three.
+
 ---
 
 ## 4. Confident predictions are right more often than unsure ones
@@ -81,6 +85,10 @@ In `results.json`, `accuracy_most_confident_third` is at least **0.15 higher** t
 
 **Why this target:** If the model's confidence means anything, the posts it's surest about should be right a lot more often. A gap of 0.15 is big enough that it isn't just noise on a test split of about 37 posts (12 per third).
 
+> **Revised in unit 6:** On **each of the three seeds**, `accuracy_most_confident_third` is at least **0.15 higher** than `accuracy_least_confident_third` (read from `results_three_seeds_*.json`).
+>
+> **Why revised:** `results.json` only holds one seed, so as written this can't be checked across three trials. The 0.15 gap stays the same.
+
 ---
 
 ## 5. I agree with my own cold labels at least 80% of the time
@@ -88,6 +96,8 @@ In `results.json`, `accuracy_most_confident_third` is at least **0.15 higher** t
 When I re-label the 20 rows marked `cold` in `labels.csv` in unit 6, without looking at the original labels, at least **16 of 20 (80%)** match the original.
 
 **Why this target:** If I can't apply my own definitions the same way twice, the model is learning from noisy labels and none of the other numbers mean much. 80% leaves room for the few posts that really sit on the `hot_take` / `reaction` line.
+
+> **Note from unit 6 (not a revision):** The "original" labels on the 20 cold rows were Claude's pre-labels, not mine, so this actually measured how well my hand labels match the AI labels that make up 222 of my 242 training rows. I'm keeping the criterion and the 16/20 target as written, because that comparison is exactly the consistency check that matters for what the model trained on.
 
 ---
 
